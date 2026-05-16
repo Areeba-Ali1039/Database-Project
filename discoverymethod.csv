@@ -7,6 +7,6 @@ method_id,method_name,description
 6,Transit Timing Variations,Variations in the timing of transits caused by gravitational interaction with other planets.
 7,Astrometry,Tiny positional shift of the star caused by an orbiting planet is measured.
 8,Disk Kinematics,Planet detected through its effect on the motion of material in a protoplanetary disk.
-9,Orbital Brightness Modulation,
+9,Orbital Brightness Modulation,Detects planets by measuring periodic brightness changes of the star caused by the orbiting planet reflecting light or causing tidal distortions.
 10,Pulsation Timing Variations,Pulsating star timing is altered by a companion planet.
 11,Pulsar Timing,Regular pulsar signals are disrupted by the gravitational influence of a planet.
