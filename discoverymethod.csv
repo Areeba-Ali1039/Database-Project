@@ -1,0 +1,12 @@
+method_id,method_name,description
+1,Radial Velocity,"Gravitational pull of the planet causes the star to wobble, detected via Doppler shift."
+2,Imaging,Planet directly imaged using advanced telescope techniques.
+3,Eclipse Timing Variations,Variations in eclipse timing in binary star systems indicate a third body (planet).
+4,Microlensing,Planet's gravity bends and amplifies light from a background star.
+5,Transit,"Planet passes in front of its star, causing a measurable dip in brightness."
+6,Transit Timing Variations,Variations in the timing of transits caused by gravitational interaction with other planets.
+7,Astrometry,Tiny positional shift of the star caused by an orbiting planet is measured.
+8,Disk Kinematics,Planet detected through its effect on the motion of material in a protoplanetary disk.
+9,Orbital Brightness Modulation,
+10,Pulsation Timing Variations,Pulsating star timing is altered by a companion planet.
+11,Pulsar Timing,Regular pulsar signals are disrupted by the gravitational influence of a planet.
