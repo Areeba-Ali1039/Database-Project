@@ -1,0 +1,101 @@
+note_id,object_type,object_id,note_text,is_favorite,created_at
+1,galaxy,18,Detected using Transit method — classic case.,1,2024-04-20 09:00:00
+2,blackhole,70,Good reference object for comparison studies.,0,2024-11-20 09:30:00
+3,blackhole,13,Interesting target for the James Webb telescope.,1,2024-10-01 09:00:00
+4,blackhole,5,Short orbital period suggests close proximity.,0,2024-10-20 14:00:00
+5,exoplanet,57,First discovered in the early 2000s.,0,2024-01-05 14:00:00
+6,blackhole,13,Potentially tidally locked to its host star.,0,2024-09-05 14:00:00
+7,galaxy,46,One of my favourite discoveries so far.,1,2024-10-01 09:30:00
+8,blackhole,25,Interesting orbital characteristics.,1,2024-01-25 09:30:00
+9,exoplanet,85,Could be a candidate for habitability research.,0,2024-03-15 14:30:00
+10,exoplanet,43,Notable for its discovery method.,0,2024-03-15 09:00:00
+11,galaxy,27,Need to cross-check the mass estimate.,0,2024-08-25 09:30:00
+12,galaxy,28,Notable for its discovery method.,0,2024-09-25 09:00:00
+13,exoplanet,77,Fascinating object — worth revisiting.,0,2024-08-01 14:00:00
+14,exoplanet,17,Mass is larger than initially estimated.,0,2024-02-25 09:00:00
+15,exoplanet,15,Potentially tidally locked to its host star.,0,2024-07-05 14:30:00
+16,exoplanet,2,Closest known example of this type.,0,2024-09-15 14:00:00
+17,galaxy,42,Fascinating object — worth revisiting.,0,2024-03-25 19:30:00
+18,blackhole,7,Added to reading list for further study.,1,2024-02-15 14:30:00
+19,galaxy,15,Marked as favourite for presentation.,0,2024-04-20 09:30:00
+20,blackhole,58,Check updated temperature readings.,0,2024-06-05 14:30:00
+21,galaxy,14,First discovered in the early 2000s.,0,2024-07-10 14:30:00
+22,galaxy,6,Marked as favourite for presentation.,0,2024-01-10 14:30:00
+23,blackhole,4,One of my favourite discoveries so far.,1,2024-07-25 09:00:00
+24,blackhole,55,Potentially tidally locked to its host star.,0,2024-08-25 14:30:00
+25,blackhole,57,Need to cross-check the mass estimate.,0,2024-09-05 14:30:00
+26,blackhole,19,Need to cross-check the mass estimate.,0,2024-02-25 19:00:00
+27,blackhole,42,Detected using Transit method — classic case.,0,2024-08-20 19:00:00
+28,blackhole,65,Notable for the host star's low metallicity.,1,2024-09-01 14:00:00
+29,exoplanet,90,Interesting orbital characteristics.,0,2024-07-10 09:30:00
+30,blackhole,58,Notable for its discovery method.,1,2024-02-15 09:30:00
+31,blackhole,59,Detected using Transit method — classic case.,1,2024-07-15 19:00:00
+32,galaxy,13,Part of a multi-planet system.,1,2024-02-01 19:00:00
+33,blackhole,33,Closest known example of this type.,0,2024-06-05 09:30:00
+34,galaxy,61,Need to cross-check the mass estimate.,0,2024-12-10 14:30:00
+35,exoplanet,12,Good reference object for comparison studies.,0,2024-01-25 19:00:00
+36,galaxy,48,Added to reading list for further study.,0,2024-12-20 14:30:00
+37,galaxy,72,Mass is larger than initially estimated.,0,2024-07-20 19:00:00
+38,galaxy,16,Good reference object for comparison studies.,0,2024-10-25 09:30:00
+39,galaxy,55,Marked as favourite for presentation.,0,2024-05-05 19:00:00
+40,blackhole,40,Closest known example of this type.,0,2024-09-25 09:30:00
+41,galaxy,65,Could be a candidate for habitability research.,0,2024-03-15 19:00:00
+42,galaxy,62,Notable for its discovery method.,0,2024-08-10 09:00:00
+43,blackhole,48,Interesting orbital characteristics.,0,2024-04-25 19:30:00
+44,galaxy,29,Good reference object for comparison studies.,0,2024-04-25 14:00:00
+45,galaxy,35,Fascinating object — worth revisiting.,0,2024-07-25 14:30:00
+46,blackhole,40,Part of a multi-planet system.,0,2024-07-20 19:30:00
+47,exoplanet,24,Added to reading list for further study.,1,2024-07-01 19:00:00
+48,exoplanet,19,Marked as favourite for presentation.,0,2024-09-15 19:30:00
+49,exoplanet,96,Spectral analysis suggests metallic composition.,0,2024-05-05 14:30:00
+50,blackhole,54,First discovered in the early 2000s.,0,2024-01-15 14:30:00
+51,exoplanet,48,Data seems inconsistent — flagged for review.,0,2024-08-15 19:30:00
+52,galaxy,11,One of my favourite discoveries so far.,0,2024-10-15 09:30:00
+53,exoplanet,97,Notable for the host star's low metallicity.,0,2024-02-10 14:30:00
+54,galaxy,11,Unusually high equilibrium temperature.,1,2024-10-01 19:00:00
+55,galaxy,55,Interesting target for the James Webb telescope.,1,2024-02-10 19:00:00
+56,blackhole,35,Could be a candidate for habitability research.,0,2024-02-20 19:00:00
+57,blackhole,56,Interesting orbital characteristics.,0,2024-10-10 09:00:00
+58,galaxy,63,Spectral analysis suggests metallic composition.,0,2024-06-01 14:00:00
+59,exoplanet,29,Detected using Transit method — classic case.,0,2024-08-15 09:00:00
+60,exoplanet,27,Data seems inconsistent — flagged for review.,0,2024-12-20 14:00:00
+61,exoplanet,98,Unusually high equilibrium temperature.,0,2024-12-20 19:00:00
+62,blackhole,16,Fascinating object — worth revisiting.,1,2024-01-25 14:30:00
+63,galaxy,56,Remarkable distance from Earth.,0,2024-10-01 14:30:00
+64,blackhole,69,Short orbital period suggests close proximity.,0,2024-02-25 19:30:00
+65,galaxy,72,Potentially tidally locked to its host star.,0,2024-04-01 09:30:00
+66,exoplanet,51,Marked as favourite for presentation.,0,2024-01-15 19:00:00
+67,blackhole,3,First discovered in the early 2000s.,0,2024-12-15 09:00:00
+68,blackhole,55,Strong candidate for follow-up observation.,1,2024-10-20 09:00:00
+69,galaxy,54,Data seems inconsistent — flagged for review.,0,2024-09-10 14:00:00
+70,blackhole,3,Part of a multi-planet system.,0,2024-12-15 19:30:00
+71,galaxy,59,Short orbital period suggests close proximity.,0,2024-11-20 19:30:00
+72,exoplanet,56,Interesting orbital characteristics.,0,2024-07-10 09:00:00
+73,blackhole,52,Spectral analysis suggests metallic composition.,0,2024-01-01 19:00:00
+74,blackhole,40,Marked as favourite for presentation.,0,2024-06-01 14:30:00
+75,exoplanet,43,Check updated temperature readings.,0,2024-07-20 14:00:00
+76,exoplanet,66,Discovered during a dedicated survey campaign.,0,2024-01-01 19:30:00
+77,galaxy,66,Could be a candidate for habitability research.,0,2024-01-10 09:00:00
+78,blackhole,19,Notable for its discovery method.,0,2024-11-01 14:00:00
+79,exoplanet,33,Could be a candidate for habitability research.,0,2024-12-15 14:00:00
+80,galaxy,20,Check updated temperature readings.,0,2024-03-05 09:30:00
+81,exoplanet,99,Discovered during a dedicated survey campaign.,1,2024-01-20 09:00:00
+82,blackhole,58,Potentially tidally locked to its host star.,0,2024-06-05 19:30:00
+83,galaxy,41,Added to reading list for further study.,1,2024-01-20 19:00:00
+84,exoplanet,61,First discovered in the early 2000s.,0,2024-03-25 09:00:00
+85,blackhole,8,Closest known example of this type.,0,2024-03-20 14:30:00
+86,blackhole,60,First discovered in the early 2000s.,0,2024-01-20 19:30:00
+87,exoplanet,48,Data seems inconsistent — flagged for review.,0,2024-08-15 14:00:00
+88,galaxy,12,Notable for the host star's low metallicity.,1,2024-10-25 19:00:00
+89,blackhole,6,First discovered in the early 2000s.,0,2024-03-01 19:30:00
+90,blackhole,61,Spectral analysis suggests metallic composition.,0,2024-01-05 09:00:00
+91,exoplanet,58,Interesting orbital characteristics.,0,2024-07-25 19:00:00
+92,galaxy,11,Spectral analysis suggests metallic composition.,0,2024-07-20 14:30:00
+93,exoplanet,32,Short orbital period suggests close proximity.,1,2024-12-01 09:00:00
+94,blackhole,68,Spectral analysis suggests metallic composition.,0,2024-10-25 14:00:00
+95,blackhole,48,Data seems inconsistent — flagged for review.,1,2024-12-10 14:00:00
+96,blackhole,44,Potentially tidally locked to its host star.,0,2024-05-25 09:30:00
+97,galaxy,43,Need to cross-check the mass estimate.,0,2024-06-25 19:30:00
+98,exoplanet,72,Potentially tidally locked to its host star.,1,2024-03-20 19:00:00
+99,blackhole,33,Marked as favourite for presentation.,0,2024-10-05 14:00:00
+100,blackhole,11,Strong candidate for follow-up observation.,0,2024-05-01 09:30:00
