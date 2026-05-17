@@ -1,0 +1,496 @@
+
+<!DOCTYPE html>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --space:#020408;
+    --deep:#060d1a;
+    --card:#0a1628;
+    --card2:#0d1f3c;
+    --accent:#00d4ff;
+    --accent2:#7b2fff;
+    --gold:#ffc849;
+    --red:#ff4d6d;
+    --text:#c8dff0;
+    --muted:#4a6a8a;
+    --border:rgba(0,212,255,0.12);
+  }
+  body{
+    background:var(--space);
+    color:var(--text);
+    font-family:'Space Mono',monospace;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+
+  /* starfield */
+  #stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+  .star{position:absolute;border-radius:50%;background:#fff;animation:twinkle var(--d,3s) ease-in-out infinite var(--delay,0s)}
+  @keyframes twinkle{0%,100%{opacity:var(--min,0.1)}50%{opacity:var(--max,0.8)}}
+
+  /* nav */
+  nav{position:relative;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 40px;border-bottom:1px solid var(--border);background:rgba(2,4,8,0.85);backdrop-filter:blur(12px)}
+  .logo{font-family:'Orbitron',monospace;font-weight:900;font-size:16px;color:#fff;letter-spacing:3px;display:flex;align-items:center;gap:10px}
+  .logo-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;box-shadow:0 0 8px var(--accent);animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 8px var(--accent)}50%{box-shadow:0 0 20px var(--accent),0 0 40px var(--accent)}}
+  .nav-links{display:flex;gap:8px}
+  .nav-btn{background:none;border:1px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:11px;padding:7px 16px;cursor:pointer;border-radius:4px;letter-spacing:1px;transition:all .2s;text-transform:uppercase}
+  .nav-btn:hover,.nav-btn.active{color:var(--accent);border-color:var(--accent);background:rgba(0,212,255,0.06)}
+
+  /* hero */
+  .hero{position:relative;z-index:10;text-align:center;padding:80px 40px 60px}
+  .hero-tag{font-size:10px;letter-spacing:4px;color:var(--accent);text-transform:uppercase;margin-bottom:20px;opacity:.7}
+  .hero-title{font-family:'Orbitron',monospace;font-size:clamp(28px,5vw,56px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:16px;text-shadow:0 0 40px rgba(0,212,255,0.3)}
+  .hero-title span{color:var(--accent)}
+  .hero-sub{font-size:12px;color:var(--muted);max-width:480px;margin:0 auto 36px;line-height:1.8;letter-spacing:.5px}
+  .hero-stats{display:flex;justify-content:center;gap:40px;margin-bottom:40px}
+  .stat{text-align:center}
+  .stat-num{font-family:'Orbitron',monospace;font-size:24px;font-weight:700;color:#fff}
+  .stat-label{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:4px}
+  .search-bar{display:flex;max-width:500px;margin:0 auto;border:1px solid var(--border);border-radius:6px;overflow:hidden;background:var(--card);transition:border-color .2s}
+  .search-bar:focus-within{border-color:var(--accent)}
+  .search-bar input{flex:1;background:none;border:none;padding:13px 18px;color:#fff;font-family:'Space Mono',monospace;font-size:12px;outline:none}
+  .search-bar input::placeholder{color:var(--muted)}
+  .search-bar button{background:var(--accent);border:none;padding:13px 20px;cursor:pointer;font-family:'Orbitron',monospace;font-size:10px;font-weight:700;color:#000;letter-spacing:2px;transition:background .2s}
+  .search-bar button:hover{background:#fff}
+
+  /* sections */
+  .section{position:relative;z-index:10;padding:0 40px 60px;display:none}
+  .section.active{display:block}
+  .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+  .section-title{font-family:'Orbitron',monospace;font-size:18px;font-weight:700;color:#fff;letter-spacing:2px}
+  .section-title span{color:var(--accent)}
+  .filter-row{display:flex;gap:8px;flex-wrap:wrap}
+  .filter-btn{background:none;border:1px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:10px;padding:6px 14px;cursor:pointer;border-radius:3px;letter-spacing:1px;transition:all .2s}
+  .filter-btn:hover,.filter-btn.active{color:var(--accent);border-color:rgba(0,212,255,0.4);background:rgba(0,212,255,0.05)}
+
+  /* grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+
+  /* cards */
+  .card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+  .card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,255,0.03),transparent);opacity:0;transition:opacity .3s}
+  .card:hover{border-color:rgba(0,212,255,0.3);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,212,255,0.08)}
+  .card:hover::before{opacity:1}
+  .card-type{font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+  .card-type-dot{width:6px;height:6px;border-radius:50%}
+  .card-name{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:#fff;margin-bottom:12px;line-height:1.4}
+  .card-rows{display:flex;flex-direction:column;gap:6px}
+  .card-row{display:flex;justify-content:space-between;align-items:center;font-size:10px}
+  .card-key{color:var(--muted);letter-spacing:.5px}
+  .card-val{color:var(--text);font-weight:700}
+  .card-badge{display:inline-block;font-size:9px;padding:3px 8px;border-radius:2px;letter-spacing:1px;text-transform:uppercase;margin-top:12px}
+  .badge-transit{background:rgba(0,212,255,0.1);color:var(--accent);border:1px solid rgba(0,212,255,0.2)}
+  .badge-rv{background:rgba(123,47,255,0.1);color:#a78bfa;border:1px solid rgba(123,47,255,0.2)}
+  .badge-imaging{background:rgba(255,200,73,0.1);color:var(--gold);border:1px solid rgba(255,200,73,0.2)}
+  .badge-stellar{background:rgba(255,77,109,0.1);color:var(--red);border:1px solid rgba(255,77,109,0.2)}
+  .badge-supermassive{background:rgba(255,77,109,0.12);color:var(--red);border:1px solid rgba(255,77,109,0.25)}
+  .badge-spiral{background:rgba(0,212,255,0.1);color:var(--accent);border:1px solid rgba(0,212,255,0.2)}
+  .badge-elliptical{background:rgba(255,200,73,0.1);color:var(--gold);border:1px solid rgba(255,200,73,0.2)}
+  .badge-irregular{background:rgba(123,47,255,0.1);color:#a78bfa;border:1px solid rgba(123,47,255,0.2)}
+  .fav-btn{position:absolute;top:14px;right:14px;background:none;border:none;cursor:pointer;font-size:14px;color:var(--muted);transition:all .2s}
+  .fav-btn:hover,.fav-btn.active{color:var(--gold);transform:scale(1.2)}
+
+  /* notes panel */
+  .notes-panel{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px;margin-top:16px;display:none}
+  .notes-panel.open{display:block}
+  .notes-panel h4{font-family:'Orbitron',monospace;font-size:12px;color:var(--accent);margin-bottom:12px;letter-spacing:2px}
+  .notes-panel textarea{width:100%;background:var(--deep);border:1px solid var(--border);border-radius:4px;padding:12px;color:var(--text);font-family:'Space Mono',monospace;font-size:11px;resize:none;height:80px;outline:none;transition:border-color .2s}
+  .notes-panel textarea:focus{border-color:rgba(0,212,255,0.3)}
+  .notes-panel button{margin-top:10px;background:var(--accent);border:none;padding:8px 18px;color:#000;font-family:'Orbitron',monospace;font-size:10px;font-weight:700;cursor:pointer;border-radius:3px;letter-spacing:1px}
+
+  /* favourites section */
+  .fav-empty{text-align:center;padding:60px;color:var(--muted);font-size:12px;letter-spacing:1px}
+  .fav-empty span{display:block;font-size:32px;margin-bottom:12px}
+
+  /* footer */
+  footer{position:relative;z-index:10;text-align:center;padding:24px;border-top:1px solid var(--border);font-size:10px;color:var(--muted);letter-spacing:1px}
+
+  /* animations */
+  .card{animation:fadeUp .4s ease both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+</style>
+
+<div id="stars"></div>
+
+<nav>
+  <div class="logo"><div class="logo-dot"></div>NASA EXPLORER</div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="showSection('home')">Home</button>
+    <button class="nav-btn" onclick="showSection('exoplanets')">Exoplanets</button>
+    <button class="nav-btn" onclick="showSection('blackholes')">Black Holes</button>
+    <button class="nav-btn" onclick="showSection('galaxies')">Galaxies</button>
+    <button class="nav-btn" onclick="showSection('favourites')">★ Favourites</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="section active" id="home">
+  <div class="hero">
+    <div class="hero-tag">// NASA Exoplanet Explorer Database System</div>
+    <h1 class="hero-title">Explore the <span>Universe</span><br>Beyond Our Solar System</h1>
+    <p class="hero-sub">Browse confirmed exoplanets, black holes, and galaxies sourced from the NASA Archive. Annotate your discoveries and build your personal favourites list.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">5,600+</div><div class="stat-label">Exoplanets</div></div>
+      <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Black Holes</div></div>
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Galaxies</div></div>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search exoplanets, black holes, galaxies..." oninput="globalSearch(this.value)">
+      <button onclick="globalSearch(document.getElementById('search-input').value)">SEARCH</button>
+    </div>
+  </div>
+
+  <div id="search-results" style="padding:0 0 40px;display:none">
+    <div style="font-family:'Orbitron',monospace;font-size:13px;color:var(--accent);margin-bottom:16px;letter-spacing:2px" id="search-label"></div>
+    <div class="grid" id="search-grid"></div>
+  </div>
+
+  <!-- quick-launch cards -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:860px;margin:0 auto;padding:0 0 40px">
+    <div class="card" onclick="showSection('exoplanets')" style="text-align:center;padding:32px 20px">
+      <div style="font-size:32px;margin-bottom:12px">🪐</div>
+      <div class="card-name" style="margin-bottom:8px">Exoplanets</div>
+      <div style="font-size:10px;color:var(--muted);line-height:1.7">Confirmed planets orbiting distant stars. Filter by discovery method, year, and host star.</div>
+    </div>
+    <div class="card" onclick="showSection('blackholes')" style="text-align:center;padding:32px 20px">
+      <div style="font-size:32px;margin-bottom:12px">⚫</div>
+      <div class="card-name" style="margin-bottom:8px">Black Holes</div>
+      <div style="font-size:10px;color:var(--muted);line-height:1.7">Stellar and supermassive black holes from across the known universe. Sorted by mass.</div>
+    </div>
+    <div class="card" onclick="showSection('galaxies')" style="text-align:center;padding:32px 20px">
+      <div style="font-size:32px;margin-bottom:12px">🌌</div>
+      <div class="card-name" style="margin-bottom:8px">Galaxies</div>
+      <div style="font-size:10px;color:var(--muted);line-height:1.7">Spiral, elliptical, and irregular galaxies. Each linked to known black holes and exoplanets.</div>
+    </div>
+  </div>
+</div>
+
+<!-- EXOPLANETS -->
+<div class="section" id="exoplanets">
+  <div class="section-header">
+    <div class="section-title"><span>//</span> EXOPLANETS</div>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterCards('exo','all',this)">All</button>
+      <button class="filter-btn" onclick="filterCards('exo','Transit',this)">Transit</button>
+      <button class="filter-btn" onclick="filterCards('exo','Radial Velocity',this)">Radial Velocity</button>
+      <button class="filter-btn" onclick="filterCards('exo','Direct Imaging',this)">Direct Imaging</button>
+    </div>
+  </div>
+  <div class="grid" id="exo-grid"></div>
+</div>
+
+<!-- BLACK HOLES -->
+<div class="section" id="blackholes">
+  <div class="section-header">
+    <div class="section-title"><span>//</span> BLACK HOLES</div>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterCards('bh','all',this)">All</button>
+      <button class="filter-btn" onclick="filterCards('bh','Stellar',this)">Stellar</button>
+      <button class="filter-btn" onclick="filterCards('bh','Supermassive',this)">Supermassive</button>
+    </div>
+  </div>
+  <div class="grid" id="bh-grid"></div>
+</div>
+
+<!-- GALAXIES -->
+<div class="section" id="galaxies">
+  <div class="section-header">
+    <div class="section-title"><span>//</span> GALAXIES</div>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterCards('gal','all',this)">All</button>
+      <button class="filter-btn" onclick="filterCards('gal','Spiral',this)">Spiral</button>
+      <button class="filter-btn" onclick="filterCards('gal','Elliptical',this)">Elliptical</button>
+      <button class="filter-btn" onclick="filterCards('gal','Irregular',this)">Irregular</button>
+    </div>
+  </div>
+  <div class="grid" id="gal-grid"></div>
+</div>
+
+<!-- FAVOURITES -->
+<div class="section" id="favourites">
+  <div class="section-header">
+    <div class="section-title"><span>//</span> FAVOURITES</div>
+  </div>
+  <div class="grid" id="fav-grid"></div>
+  <div class="fav-empty" id="fav-empty" style="display:none"><span>★</span>No favourites yet. Star any object to save it here.</div>
+</div>
+
+<footer>NASA EXOPLANET EXPLORER DATABASE SYSTEM — Milestone 1 · Syeda Shandana Shah & Areeba Ali · BS AI Semester 4</footer>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const exoplanets = [
+  {id:'e1',name:'TRAPPIST-1 e',star:'TRAPPIST-1',method:'Transit',year:2017,radius:0.92,mass:0.62,temp:251,orbper:6.1},
+  {id:'e2',name:'Kepler-452b',star:'Kepler-452',method:'Transit',year:2015,radius:1.63,mass:5.0,temp:265,orbper:384.8},
+  {id:'e3',name:'HD 209458 b',star:'HD 209458',method:'Transit',year:1999,radius:1.38,mass:0.69,temp:1449,orbper:3.5},
+  {id:'e4',name:'51 Pegasi b',star:'51 Pegasi',method:'Radial Velocity',year:1995,radius:1.27,mass:0.47,temp:1265,orbper:4.2},
+  {id:'e5',name:'HR 8799 b',star:'HR 8799',method:'Direct Imaging',year:2008,radius:1.22,mass:7.0,temp:900,orbper:460},
+  {id:'e6',name:'GJ 1214 b',star:'GJ 1214',method:'Transit',year:2009,radius:2.68,mass:6.55,temp:393,orbper:1.6},
+  {id:'e7',name:'55 Cancri e',star:'55 Cancri',method:'Radial Velocity',year:2004,radius:1.99,mass:8.08,temp:2709,orbper:0.74},
+  {id:'e8',name:'Proxima b',star:'Proxima Centauri',method:'Radial Velocity',year:2016,radius:1.1,mass:1.27,temp:234,orbper:11.2},
+  {id:'e9',name:'WASP-12 b',star:'WASP-12',method:'Transit',year:2008,radius:1.9,mass:1.47,temp:2585,orbper:1.09},
+  {id:'e10',name:'Kepler-22b',star:'Kepler-22',method:'Transit',year:2011,radius:2.38,mass:null,temp:295,orbper:289.9},
+  {id:'e11',name:'LHS 1140 b',star:'LHS 1140',method:'Transit',year:2017,radius:1.73,mass:6.98,temp:230,orbper:24.7},
+  {id:'e12',name:'TOI-700 d',star:'TOI-700',method:'Transit',year:2020,radius:1.14,mass:null,temp:269,orbper:37.4},
+];
+
+const blackholes = [
+  {id:'b1',name:'Cygnus X-1',type:'Stellar',mass_solar:21.2,galaxy:'Milky Way',dist_ly:6070,discovered:1964},
+  {id:'b2',name:'Sagittarius A*',type:'Supermassive',mass_solar:4.1e6,galaxy:'Milky Way',dist_ly:26000,discovered:1974},
+  {id:'b3',name:'M87*',type:'Supermassive',mass_solar:6.5e9,galaxy:'Messier 87',dist_ly:5.4e7,discovered:1918},
+  {id:'b4',name:'GRS 1915+105',type:'Stellar',mass_solar:14.0,galaxy:'Milky Way',dist_ly:36000,discovered:1992},
+  {id:'b5',name:'V404 Cygni',type:'Stellar',mass_solar:9.0,galaxy:'Milky Way',dist_ly:7800,discovered:1989},
+  {id:'b6',name:'NGC 1277 BH',type:'Supermassive',mass_solar:1.7e10,galaxy:'NGC 1277',dist_ly:2.2e8,discovered:2012},
+  {id:'b7',name:'TON 618',type:'Supermassive',mass_solar:6.6e10,galaxy:'TON 618',dist_ly:1.05e10,discovered:1970},
+  {id:'b8',name:'A0620-00',type:'Stellar',mass_solar:6.6,galaxy:'Milky Way',dist_ly:3300,discovered:1975},
+];
+
+const galaxies = [
+  {id:'g1',name:'Milky Way',type:'Spiral',dist_mly:0,stars:'200-400B',diameter_ly:105700,bhs:2,exoplanets:5600},
+  {id:'g2',name:'Andromeda (M31)',type:'Spiral',dist_mly:2.537,stars:'1T',diameter_ly:220000,bhs:1,exoplanets:0},
+  {id:'g3',name:'Messier 87',type:'Elliptical',dist_mly:53.5,stars:'1T',diameter_ly:980000,bhs:1,exoplanets:0},
+  {id:'g4',name:'Large Magellanic Cloud',type:'Irregular',dist_mly:0.158,stars:'30B',diameter_ly:14000,bhs:0,exoplanets:0},
+  {id:'g5',name:'Triangulum (M33)',type:'Spiral',dist_mly:2.73,stars:'40B',diameter_ly:60000,bhs:0,exoplanets:0},
+  {id:'g6',name:'NGC 1277',type:'Elliptical',dist_mly:220,stars:'~300B',diameter_ly:40000,bhs:1,exoplanets:0},
+  {id:'g7',name:'Small Magellanic Cloud',type:'Irregular',dist_mly:0.197,stars:'3B',diameter_ly:7000,bhs:0,exoplanets:0},
+  {id:'g8',name:'Centaurus A',type:'Elliptical',dist_mly:13.7,stars:'~100B',diameter_ly:60000,bhs:1,exoplanets:0},
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let favourites = {};
+let notes = {};
+let openNote = null;
+
+// ── STARS BACKGROUND ──────────────────────────────────────────────────────────
+(function(){
+  const c=document.getElementById('stars');
+  for(let i=0;i<180;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    const size=Math.random()*2+0.5;
+    s.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*4}s;--min:${0.05+Math.random()*0.15};--max:${0.4+Math.random()*0.6}`;
+    c.appendChild(s);
+  }
+})();
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function fmt(n){
+  if(n===null||n===undefined) return '—';
+  if(n>=1e9) return (n/1e9).toFixed(1)+'B☉';
+  if(n>=1e6) return (n/1e6).toFixed(2)+'M☉';
+  return n.toLocaleString();
+}
+function fmtDist(n){
+  if(n===0) return 'We are here';
+  if(n>=1e6) return (n/1e6).toFixed(2)+'B ly';
+  if(n>=1000) return (n/1000).toFixed(2)+'K ly';
+  return n+' ly';
+}
+function methodBadge(m){
+  if(m==='Transit') return 'transit';
+  if(m==='Radial Velocity') return 'rv';
+  return 'imaging';
+}
+function toggleFav(id,label){
+  if(favourites[id]){delete favourites[id]}else{favourites[id]={id,label}}
+  refreshFavs();
+  // re-render all grids to update star buttons
+  renderAll();
+}
+function toggleNote(id){
+  if(openNote===id){openNote=null}else{openNote=id}
+  renderAll();
+}
+function saveNote(id){
+  const ta=document.getElementById('note-'+id);
+  if(ta){notes[id]=ta.value}
+}
+
+// ── RENDER EXOPLANETS ──────────────────────────────────────────────────────────
+function renderExo(list,targetId){
+  const g=document.getElementById(targetId);
+  if(!g) return;
+  g.innerHTML='';
+  list.forEach((p,i)=>{
+    const isFav=!!favourites[p.id];
+    const noteOpen=openNote===p.id;
+    const div=document.createElement('div');
+    div.innerHTML=`
+      <div class="card" style="animation-delay:${i*0.04}s">
+        <button class="fav-btn ${isFav?'active':''}" onclick="toggleFav('${p.id}','${p.name}');event.stopPropagation()">${isFav?'★':'☆'}</button>
+        <div class="card-type" style="color:var(--accent)"><div class="card-type-dot" style="background:var(--accent)"></div>EXOPLANET</div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-rows">
+          <div class="card-row"><span class="card-key">Host Star</span><span class="card-val">${p.star}</span></div>
+          <div class="card-row"><span class="card-key">Discovered</span><span class="card-val">${p.year}</span></div>
+          <div class="card-row"><span class="card-key">Orbit Period</span><span class="card-val">${p.orbper} days</span></div>
+          <div class="card-row"><span class="card-key">Radius</span><span class="card-val">${p.radius} R♃</span></div>
+          <div class="card-row"><span class="card-key">Eq. Temp</span><span class="card-val">${p.temp} K</span></div>
+        </div>
+        <span class="card-badge badge-${methodBadge(p.method)}">${p.method}</span>
+        <div style="margin-top:12px;font-size:10px;color:var(--muted);cursor:pointer;letter-spacing:1px" onclick="toggleNote('${p.id}')">${noteOpen?'▾':'▸'} NOTES ${notes[p.id]?'●':''}</div>
+        <div class="notes-panel ${noteOpen?'open':''}">
+          <h4>USER NOTES — ${p.name}</h4>
+          <textarea id="note-${p.id}" placeholder="Add your annotation...">${notes[p.id]||''}</textarea>
+          <button onclick="saveNote('${p.id}');toggleNote('${p.id}')">SAVE NOTE</button>
+        </div>
+      </div>`;
+    g.appendChild(div.firstElementChild);
+  });
+}
+
+// ── RENDER BLACK HOLES ─────────────────────────────────────────────────────────
+function renderBH(list,targetId){
+  const g=document.getElementById(targetId);
+  if(!g) return;
+  g.innerHTML='';
+  list.forEach((b,i)=>{
+    const isFav=!!favourites[b.id];
+    const noteOpen=openNote===b.id;
+    const div=document.createElement('div');
+    div.innerHTML=`
+      <div class="card" style="animation-delay:${i*0.04}s">
+        <button class="fav-btn ${isFav?'active':''}" onclick="toggleFav('${b.id}','${b.name}');event.stopPropagation()">${isFav?'★':'☆'}</button>
+        <div class="card-type" style="color:var(--red)"><div class="card-type-dot" style="background:var(--red)"></div>BLACK HOLE</div>
+        <div class="card-name">${b.name}</div>
+        <div class="card-rows">
+          <div class="card-row"><span class="card-key">Type</span><span class="card-val">${b.type}</span></div>
+          <div class="card-row"><span class="card-key">Mass</span><span class="card-val">${fmt(b.mass_solar)} M☉</span></div>
+          <div class="card-row"><span class="card-key">Galaxy</span><span class="card-val">${b.galaxy}</span></div>
+          <div class="card-row"><span class="card-key">Distance</span><span class="card-val">${fmtDist(b.dist_ly)}</span></div>
+          <div class="card-row"><span class="card-key">Discovered</span><span class="card-val">${b.discovered}</span></div>
+        </div>
+        <span class="card-badge badge-${b.type.toLowerCase()}">${b.type}</span>
+        <div style="margin-top:12px;font-size:10px;color:var(--muted);cursor:pointer;letter-spacing:1px" onclick="toggleNote('${b.id}')">${noteOpen?'▾':'▸'} NOTES ${notes[b.id]?'●':''}</div>
+        <div class="notes-panel ${noteOpen?'open':''}">
+          <h4>USER NOTES — ${b.name}</h4>
+          <textarea id="note-${b.id}" placeholder="Add your annotation...">${notes[b.id]||''}</textarea>
+          <button onclick="saveNote('${b.id}');toggleNote('${b.id}')">SAVE NOTE</button>
+        </div>
+      </div>`;
+    g.appendChild(div.firstElementChild);
+  });
+}
+
+// ── RENDER GALAXIES ────────────────────────────────────────────────────────────
+function renderGal(list,targetId){
+  const g=document.getElementById(targetId);
+  if(!g) return;
+  g.innerHTML='';
+  list.forEach((gal,i)=>{
+    const isFav=!!favourites[gal.id];
+    const noteOpen=openNote===gal.id;
+    const div=document.createElement('div');
+    div.innerHTML=`
+      <div class="card" style="animation-delay:${i*0.04}s">
+        <button class="fav-btn ${isFav?'active':''}" onclick="toggleFav('${gal.id}','${gal.name}');event.stopPropagation()">${isFav?'★':'☆'}</button>
+        <div class="card-type" style="color:var(--gold)"><div class="card-type-dot" style="background:var(--gold)"></div>GALAXY</div>
+        <div class="card-name">${gal.name}</div>
+        <div class="card-rows">
+          <div class="card-row"><span class="card-key">Type</span><span class="card-val">${gal.type}</span></div>
+          <div class="card-row"><span class="card-key">Distance</span><span class="card-val">${gal.dist_mly===0?'Our Galaxy':gal.dist_mly+' Mly'}</span></div>
+          <div class="card-row"><span class="card-key">Stars</span><span class="card-val">${gal.stars}</span></div>
+          <div class="card-row"><span class="card-key">Diameter</span><span class="card-val">${gal.diameter_ly.toLocaleString()} ly</span></div>
+          <div class="card-row"><span class="card-key">Known BHs</span><span class="card-val">${gal.bhs}</span></div>
+        </div>
+        <span class="card-badge badge-${gal.type.toLowerCase()}">${gal.type}</span>
+        <div style="margin-top:12px;font-size:10px;color:var(--muted);cursor:pointer;letter-spacing:1px" onclick="toggleNote('${gal.id}')">${noteOpen?'▾':'▸'} NOTES ${notes[gal.id]?'●':''}</div>
+        <div class="notes-panel ${noteOpen?'open':''}">
+          <h4>USER NOTES — ${gal.name}</h4>
+          <textarea id="note-${gal.id}" placeholder="Add your annotation...">${notes[gal.id]||''}</textarea>
+          <button onclick="saveNote('${gal.id}');toggleNote('${gal.id}')">SAVE NOTE</button>
+        </div>
+      </div>`;
+    g.appendChild(div.firstElementChild);
+  });
+}
+
+// ── FAVOURITES ─────────────────────────────────────────────────────────────────
+function refreshFavs(){
+  const keys=Object.keys(favourites);
+  const fe=document.getElementById('fav-empty');
+  const fg=document.getElementById('fav-grid');
+  if(!fg) return;
+  if(keys.length===0){
+    fg.innerHTML='';
+    if(fe) fe.style.display='block';
+    return;
+  }
+  if(fe) fe.style.display='none';
+  const favExo=exoplanets.filter(p=>favourites[p.id]);
+  const favBH=blackholes.filter(b=>favourites[b.id]);
+  const favGal=galaxies.filter(g=>favourites[g.id]);
+  fg.innerHTML='';
+  renderExo(favExo,'fav-grid');
+  // append BH + galaxies into same grid
+  const tempBH=document.createElement('div');tempBH.id='temp-bh';fg.appendChild(tempBH);
+  renderBH(favBH,'temp-bh');
+  while(tempBH.firstChild){fg.appendChild(tempBH.firstChild);}
+  fg.removeChild(tempBH);
+  const tempGal=document.createElement('div');tempGal.id='temp-gal';fg.appendChild(tempGal);
+  renderGal(favGal,'temp-gal');
+  while(tempGal.firstChild){fg.appendChild(tempGal.firstChild);}
+  fg.removeChild(tempGal);
+}
+
+function renderAll(){
+  renderExo(exoplanets,'exo-grid');
+  renderBH(blackholes,'bh-grid');
+  renderGal(galaxies,'gal-grid');
+  refreshFavs();
+}
+
+// ── SECTIONS ───────────────────────────────────────────────────────────────────
+function showSection(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  const map={home:0,exoplanets:1,blackholes:2,galaxies:3,favourites:4};
+  document.querySelectorAll('.nav-btn')[map[id]].classList.add('active');
+  if(id==='favourites') refreshFavs();
+}
+
+// ── FILTER ─────────────────────────────────────────────────────────────────────
+function filterCards(type,val,btn){
+  btn.parentNode.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(type==='exo'){
+    const list=val==='all'?exoplanets:exoplanets.filter(p=>p.method===val);
+    renderExo(list,'exo-grid');
+  }else if(type==='bh'){
+    const list=val==='all'?blackholes:blackholes.filter(b=>b.type===val);
+    renderBH(list,'bh-grid');
+  }else{
+    const list=val==='all'?galaxies:galaxies.filter(g=>g.type===val);
+    renderGal(list,'gal-grid');
+  }
+}
+
+// ── SEARCH ─────────────────────────────────────────────────────────────────────
+function globalSearch(q){
+  const sr=document.getElementById('search-results');
+  const sg=document.getElementById('search-grid');
+  const sl=document.getElementById('search-label');
+  if(!q||q.length<2){sr.style.display='none';return;}
+  q=q.toLowerCase();
+  const ex=exoplanets.filter(p=>p.name.toLowerCase().includes(q)||p.star.toLowerCase().includes(q)||p.method.toLowerCase().includes(q));
+  const bh=blackholes.filter(b=>b.name.toLowerCase().includes(q)||b.type.toLowerCase().includes(q)||b.galaxy.toLowerCase().includes(q));
+  const gal=galaxies.filter(g=>g.name.toLowerCase().includes(q)||g.type.toLowerCase().includes(q));
+  const total=ex.length+bh.length+gal.length;
+  sr.style.display='block';
+  sl.textContent=`// ${total} result${total!==1?'s':''} for "${q}"`;
+  sg.innerHTML='';
+  const t1=document.createElement('div');t1.id='sr-exo';sg.appendChild(t1);
+  renderExo(ex,'sr-exo');while(t1.firstChild){sg.appendChild(t1.firstChild);}sg.removeChild(t1);
+  const t2=document.createElement('div');t2.id='sr-bh';sg.appendChild(t2);
+  renderBH(bh,'sr-bh');while(t2.firstChild){sg.appendChild(t2.firstChild);}sg.removeChild(t2);
+  const t3=document.createElement('div');t3.id='sr-gal';sg.appendChild(t3);
+  renderGal(gal,'sr-gal');while(t3.firstChild){sg.appendChild(t3.firstChild);}sg.removeChild(t3);
+}
+
+// ── INIT ───────────────────────────────────────────────────────────────────────
+renderAll();
+</script>
